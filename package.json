@@ -1,0 +1,41 @@
+{
+  "name": "todomvc-tartjs",
+  "version": "0.0.1",
+  "description": "A TodoMVC with tartJS",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-livereload": "^3.8.0"
+  },
+  "devDependencies": {
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-concat-css": "^2.2.0",
+    "gulp-filenames": "^1.3.0",
+    "gulp-html-replace": "^1.5.1",
+    "gulp-htmlmin": "^1.1.3",
+    "gulp-livereload": "dashersw/gulp-server-livereload",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-rev": "^5.0.1",
+    "gulp-rev-napkin": "^0.1.0",
+    "gulp-rev-replace": "^0.4.2",
+    "gulp-server-livereload": "^1.4.0",
+    "gulp-shell": "^0.4.2",
+    "gulp-symlink": "^2.1.1",
+    "run-sequence": "^1.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tart/tartjs-todomvc"
+  },
+  "keywords": [
+    "todomvc",
+    "mvc"
+  ],
+  "author": "Armagan Amcalar <armagan@amcalar.com>",
+  "license": "Apache License, Version 2.0",
+  "bugs": {
+    "url": "https://github.com/tart/tartjs-todomvc/issues"
+  },
+  "homepage": "https://github.com/tart/tartjs-todomvc"
+}
