@@ -71,7 +71,7 @@ gulp.task('static', function() {
 
 
 gulp.task('get-css', function() {
-    return gulp.src(['src/css/reset.css', 'src/css/base.css', 'src/**/*.css']).
+    return gulp.src(['src/css/reset.css', 'src/**/base.css', 'src/**/*.css']).
         pipe(filenames('css'));
 });
 
