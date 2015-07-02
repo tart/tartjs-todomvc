@@ -18,6 +18,11 @@ Make sure you have gulp installed:
 $ sudo npm install -g gulp
 ```
 
+Now you are ready to run the project. After you execute this command, the project will start automatically on your browser.
+```
+$ gulp
+```
+
 ## Development
 
 This project provides a development web server that listens on port 8000.
