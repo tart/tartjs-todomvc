@@ -141,7 +141,7 @@ todomvc.models.TodoModel.prototype.storeTodos_ = function() {
  * @private
  */
 todomvc.models.TodoModel.prototype.loadTodos_ = function() {
-    this.todos_ = this.storage.get('todomvc-tartjs').map(this.deserializeTodo);
+    this.todos_ = (this.storage.get('todomvc-tartjs') || []).map(this.deserializeTodo);
 };
 
 
