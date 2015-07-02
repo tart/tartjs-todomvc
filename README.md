@@ -31,3 +31,6 @@ When you are satisfied with development and want to make a production build in o
  The live-reloading watch server can also be activated for these kind of builds via `gulp serve`.
 
  Happy coding!
+ 
+ ### App specs
+ This project follows the TodoMVC spec, which is available at https://github.com/tastejs/todomvc/blob/master/app-spec.md
