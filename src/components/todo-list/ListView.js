@@ -20,7 +20,7 @@ function ListView() {
 
     this.children = this.model.todos.map(function(todo) {
         return new Item(todo);
-    }, this);
+    });
 }
 goog.inherits(ListView, DlgComponent);
 
@@ -42,7 +42,7 @@ ListView.prototype.onUpdate = function() {
 
     this.children = this.model.todos.map(function(todo) {
         return new Item(todo);
-    }, this);
+    });
 
     this.getElement().innerHTML = this.templates_todos();
 };

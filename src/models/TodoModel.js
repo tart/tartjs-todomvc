@@ -21,7 +21,7 @@ goog.inherits(TodoModel, EventTarget);
 
 
 /**
- * @type {Array.<todomvc.entities.Todo>}
+ * @type {Array.<Todo>}
  * @private
  */
 TodoModel.prototype.todos_;
@@ -148,7 +148,7 @@ TodoModel.prototype.loadTodos_ = function() {
 /**
  * Serializes a todo instance for storage purposes.
  *
- * @param {todomvc.entities.Todo} todo
+ * @param {Todo} todo
  */
 TodoModel.prototype.serializeTodo = function(todo) {
     return {
@@ -163,7 +163,7 @@ TodoModel.prototype.serializeTodo = function(todo) {
  * Deserializes a JSON object and returns a new todo instance.
  *
  * @param {Object} obj
- * @return {todomvc.entities.Todo}
+ * @return {Todo}
  */
 TodoModel.prototype.deserializeTodo = function(obj) {
     return new Todo(obj);
