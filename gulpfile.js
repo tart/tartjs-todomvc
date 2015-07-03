@@ -137,7 +137,7 @@ gulp.task('deps', shell.task(
         --root_with_prefix="lib/tartJS/tart ../../../../tart" \
         --root_with_prefix="lib/tartJS/third_party/goog/closure/goog ./" \
         --root_with_prefix="lib/tartJS/third_party/goog/third_party/closure/goog ../../third_party/closure/goog" \
-        --root_with_prefix="src/ ../../../../../../../" \
+        --root_with_prefix="src/ ../../../../../../" \
         --output_file="dist/deps.js"'
 ));
 
