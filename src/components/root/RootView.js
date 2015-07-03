@@ -1,9 +1,11 @@
-goog.provide('todomvc.components.Root.RootView');
+goog.module('todomvc.components.Root.RootView');
 goog.require('goog.events.KeyHandler');
 goog.require('goog.i18n.MessageFormat');
 goog.require('tart.ui.DlgComponent');
 goog.require('todomvc.components.Root.RootViewModel');
 goog.require('todomvc.components.TodoList.ListView');
+
+exports = RootView;
 
 
 
@@ -12,33 +14,33 @@ goog.require('todomvc.components.TodoList.ListView');
  * @constructor
  * @extends {tart.ui.DlgComponent}
  */
-todomvc.components.Root.RootView = function() {
+function RootView() {
     this.model = new todomvc.components.Root.RootViewModel();
-    goog.base(this);
+    RootView.base(this, 'constructor');
 
     this.listView = new todomvc.components.TodoList.ListView();
     this.itemsFormatter = new goog.i18n.MessageFormat(
         '{NUM_ITEMS, selectordinal, ' +
         'one {item left} ' +
         'other {items left}}');
-};
-goog.inherits(todomvc.components.Root.RootView, tart.ui.DlgComponent);
+}
+goog.inherits(RootView, tart.ui.DlgComponent);
 
 
 /**
  * @override
  */
-todomvc.components.Root.RootView.prototype.bindModelEvents = function() {
+RootView.prototype.bindModelEvents = function() {
     this.model.listen('update', this.onUpdate, false, this);
 };
 
 
-todomvc.components.Root.RootView.prototype.toggleAll = function() {
+RootView.prototype.toggleAll = function() {
     this.model.toggleAll();
 };
 
 
-todomvc.components.Root.RootView.prototype.clearCompleted = function() {
+RootView.prototype.clearCompleted = function() {
     this.model.clearCompleted();
 };
 
@@ -47,7 +49,7 @@ todomvc.components.Root.RootView.prototype.clearCompleted = function() {
  *
  * @param {goog.events.BrowserEvent} e
  */
-todomvc.components.Root.RootView.prototype.createTodo = function(e) {
+RootView.prototype.createTodo = function(e) {
     if (e.keyCode != goog.events.KeyCodes.ENTER) return;
 
     var input = this.getChild('.new-todo')[0];
@@ -62,15 +64,15 @@ todomvc.components.Root.RootView.prototype.createTodo = function(e) {
 };
 
 
-todomvc.components.Root.RootView.prototype.render = function(opt_base) {
-    goog.base(this, 'render', opt_base);
+RootView.prototype.render = function(opt_base) {
+    RootView.base(this, 'render', opt_base);
 
     this.keyHandler = new goog.events.KeyHandler(this.getChild('.new-todo')[0]);
     this.keyHandler.listen(goog.events.KeyHandler.EventType.KEY, this.createTodo, false, this);
 };
 
 
-todomvc.components.Root.RootView.prototype.onUpdate = function() {
+RootView.prototype.onUpdate = function() {
     var hideClearCompletedButton = this.model.uncompletedCount == this.model.items.length;
 
     this.getChild('strong')[0].textContent = this.model.uncompletedCount;
@@ -86,7 +88,7 @@ todomvc.components.Root.RootView.prototype.onUpdate = function() {
 /**
  * @override
  */
-todomvc.components.Root.RootView.prototype.templates_base = function() {
+RootView.prototype.templates_base = function() {
     return '<view id="' + this.getId() + '">' +
         this.templates_section() +
         this.templates_footer() +
@@ -97,7 +99,7 @@ todomvc.components.Root.RootView.prototype.templates_base = function() {
 /**
  * @return {string} Main section template.
  */
-todomvc.components.Root.RootView.prototype.templates_section = function() {
+RootView.prototype.templates_section = function() {
     var checked = this.model.isCompleted ? 'checked' : '';
 
 
@@ -117,7 +119,7 @@ todomvc.components.Root.RootView.prototype.templates_section = function() {
 /**
  * @return {string} Header template.
  */
-todomvc.components.Root.RootView.prototype.templates_header = function() {
+RootView.prototype.templates_header = function() {
     return '<header class="header">' +
         '<h1>todos</h1>' +
         '<input class="new-todo" placeholder="What needs to be done?" autofocus>' +
@@ -125,14 +127,14 @@ todomvc.components.Root.RootView.prototype.templates_header = function() {
 };
 
 
-todomvc.components.Root.RootView.prototype.templates_items_counter = function() {
+RootView.prototype.templates_items_counter = function() {
     var message = this.itemsFormatter.format({'NUM_ITEMS': this.model.uncompletedCount});
 
     return '<strong>' + this.model.uncompletedCount + '</strong> ' + message;
 };
 
 
-todomvc.components.Root.RootView.prototype.templates_todo_footer = function() {
+RootView.prototype.templates_todo_footer = function() {
     var hidden = this.model.items.length == 0 ? ' hidden' : '';
 
     return '<footer class="footer ' + hidden + '">' +
@@ -156,7 +158,7 @@ todomvc.components.Root.RootView.prototype.templates_todo_footer = function() {
 /**
  * @return {string} Footer template.
  */
-todomvc.components.Root.RootView.prototype.templates_footer = function() {
+RootView.prototype.templates_footer = function() {
     return '<footer class="info">' +
         '<p>Double-click to edit a todo</p>' +
         '<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>' +
@@ -166,9 +168,9 @@ todomvc.components.Root.RootView.prototype.templates_footer = function() {
 };
 
 
-todomvc.components.Root.RootView.prototype.events = {
+RootView.prototype.events = {
     'click': {
-        '.toggle-all': todomvc.components.Root.RootView.prototype.toggleAll,
-        '.clear-completed': todomvc.components.Root.RootView.prototype.clearCompleted
+        '.toggle-all': RootView.prototype.toggleAll,
+        '.clear-completed': RootView.prototype.clearCompleted
     }
 };

@@ -92,11 +92,13 @@ gulp.task('bundle-process-html', function() {
 
 gulp.task('dev-process-html', ['get-css'], function() {
     var css = filenames.get('css');
-    var js = ['lib/tartJS/third_party/goog/closure/goog/base.js', 'deps.js', 'app.js'];
+    var js = ['lib/tartJS/third_party/goog/closure/goog/base.js', 'deps.js'];
 
     return gulp.src('src/index.html').
         pipe(htmlReplace({
             'tartjs': css.concat(js)
+        }, {
+            keepUnassigned: true
         })).
         pipe(gulp.dest('dist'));
 });
