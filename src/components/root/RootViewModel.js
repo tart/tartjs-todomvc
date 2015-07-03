@@ -1,4 +1,5 @@
 goog.module('todomvc.components.Root.RootViewModel');
+
 var ComponentModel = goog.require('tart.ui.ComponentModel');
 var TodoModel = goog.require('todomvc.models.TodoModel');
 

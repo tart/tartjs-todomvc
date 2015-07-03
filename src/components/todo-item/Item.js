@@ -1,4 +1,5 @@
 goog.module('todomvc.components.TodoItem.Item');
+
 var classlist = goog.require('goog.dom.classlist');
 var DlgComponent = goog.require('tart.ui.DlgComponent');
 var ItemModel = goog.require('todomvc.components.TodoItem.ItemModel');

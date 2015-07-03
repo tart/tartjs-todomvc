@@ -1,4 +1,5 @@
 goog.module('todomvc.components.TodoList.ListView');
+
 var DlgComponent = goog.require('tart.ui.DlgComponent');
 var Item = goog.require('todomvc.components.TodoItem.Item');
 var ListViewModel = goog.require('todomvc.components.TodoList.ListViewModel');

@@ -1,4 +1,5 @@
 goog.module('todomvc.models.TodoModel');
+
 var EventTarget = goog.require('goog.events.EventTarget');
 var Storage = goog.require('tart.storage.Storage');
 var Todo = goog.require('todomvc.entities.Todo');
