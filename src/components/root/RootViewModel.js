@@ -10,7 +10,7 @@ goog.require('todomvc.models.TodoModel');
  * @extends {tart.ui.ComponentModel}
  */
 todomvc.components.Root.RootViewModel = function() {
-    goog.base(this);
+    todomvc.components.Root.RootViewModel.base(this, 'constructor');
 
     this.todoModel = todomvc.models.TodoModel.getInstance();
     this.items = this.todoModel.getTodos();

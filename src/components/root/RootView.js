@@ -1,9 +1,10 @@
 goog.module('todomvc.components.Root.RootView');
-goog.require('goog.events.KeyHandler');
-goog.require('goog.i18n.MessageFormat');
-goog.require('tart.ui.DlgComponent');
-goog.require('todomvc.components.Root.RootViewModel');
-goog.require('todomvc.components.TodoList.ListView');
+
+var KeyHandler = goog.require('goog.events.KeyHandler');
+var MessageFormat = goog.require('goog.i18n.MessageFormat');
+var DlgComponent = goog.require('tart.ui.DlgComponent');
+var RootViewModel = goog.require('todomvc.components.Root.RootViewModel');
+var ListView = goog.require('todomvc.components.TodoList.ListView');
 
 exports = RootView;
 
@@ -12,19 +13,19 @@ exports = RootView;
 /**
  *
  * @constructor
- * @extends {tart.ui.DlgComponent}
+ * @extends {DlgComponent}
  */
 function RootView() {
-    this.model = new todomvc.components.Root.RootViewModel();
+    this.model = new RootViewModel();
     RootView.base(this, 'constructor');
 
-    this.listView = new todomvc.components.TodoList.ListView();
-    this.itemsFormatter = new goog.i18n.MessageFormat(
+    this.listView = new ListView();
+    this.itemsFormatter = new MessageFormat(
         '{NUM_ITEMS, selectordinal, ' +
         'one {item left} ' +
         'other {items left}}');
 }
-goog.inherits(RootView, tart.ui.DlgComponent);
+goog.inherits(RootView, DlgComponent);
 
 
 /**
@@ -67,8 +68,8 @@ RootView.prototype.createTodo = function(e) {
 RootView.prototype.render = function(opt_base) {
     RootView.base(this, 'render', opt_base);
 
-    this.keyHandler = new goog.events.KeyHandler(this.getChild('.new-todo')[0]);
-    this.keyHandler.listen(goog.events.KeyHandler.EventType.KEY, this.createTodo, false, this);
+    this.keyHandler = new KeyHandler(this.getChild('.new-todo')[0]);
+    this.keyHandler.listen(KeyHandler.EventType.KEY, this.createTodo, false, this);
 };
 
 

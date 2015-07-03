@@ -13,7 +13,7 @@ goog.require('todomvc.components.TodoList.ListViewModel');
 todomvc.components.TodoList.ListView = function() {
     this.model = new todomvc.components.TodoList.ListViewModel();
 
-    goog.base(this);
+    todomvc.components.TodoList.ListView.base(this, 'constructor');
 
     this.children = this.model.todos.map(function(todo) {
         return new todomvc.components.TodoItem.Item(todo);
