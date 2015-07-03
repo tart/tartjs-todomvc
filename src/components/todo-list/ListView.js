@@ -1,44 +1,46 @@
-goog.provide('todomvc.components.TodoList.ListView');
-goog.require('tart.ui.DlgComponent');
-goog.require('todomvc.components.TodoItem.Item');
-goog.require('todomvc.components.TodoList.ListViewModel');
+goog.module('todomvc.components.TodoList.ListView');
+var DlgComponent = goog.require('tart.ui.DlgComponent');
+var Item = goog.require('todomvc.components.TodoItem.Item');
+var ListViewModel = goog.require('todomvc.components.TodoList.ListViewModel');
+
+exports = ListView;
 
 
 
 /**
  *
  * @constructor
- * @extends {tart.ui.DlgComponent}
+ * @extends {DlgComponent}
  */
-todomvc.components.TodoList.ListView = function() {
-    this.model = new todomvc.components.TodoList.ListViewModel();
+function ListView() {
+    this.model = new ListViewModel();
 
-    todomvc.components.TodoList.ListView.base(this, 'constructor');
+    ListView.base(this, 'constructor');
 
     this.children = this.model.todos.map(function(todo) {
-        return new todomvc.components.TodoItem.Item(todo);
+        return new Item(todo);
     }, this);
-};
-goog.inherits(todomvc.components.TodoList.ListView, tart.ui.DlgComponent);
+}
+goog.inherits(ListView, DlgComponent);
 
 
 /**
  * @override
  */
-todomvc.components.TodoList.ListView.prototype.bindModelEvents = function() {
+ListView.prototype.bindModelEvents = function() {
     this.model.listen('add', this.onUpdate, false, this);
     this.model.listen('remove', this.onUpdate, false, this);
     this.model.listen('clear', this.onUpdate, false, this);
 };
 
 
-todomvc.components.TodoList.ListView.prototype.onUpdate = function() {
+ListView.prototype.onUpdate = function() {
     this.children.forEach(function(child) {
         child.dispose();
     });
 
     this.children = this.model.todos.map(function(todo) {
-        return new todomvc.components.TodoItem.Item(todo);
+        return new Item(todo);
     }, this);
 
     this.getElement().innerHTML = this.templates_todos();
@@ -48,7 +50,7 @@ todomvc.components.TodoList.ListView.prototype.onUpdate = function() {
 /**
  * @override
  */
-todomvc.components.TodoList.ListView.prototype.disposeInternal = function() {
+ListView.prototype.disposeInternal = function() {
     this.model.dispose();
 
     this.children.forEach(function(child) {
@@ -59,14 +61,14 @@ todomvc.components.TodoList.ListView.prototype.disposeInternal = function() {
 };
 
 
-todomvc.components.TodoList.ListView.prototype.templates_base = function() {
+ListView.prototype.templates_base = function() {
     return '<ul class="todo-list" id="' + this.getId() + '">' +
         this.templates_todos() +
         '</ul>';
 };
 
 
-todomvc.components.TodoList.ListView.prototype.templates_todos = function() {
+ListView.prototype.templates_todos = function() {
     return this.children.map(function(child) {
         return child.getPlaceholder();
     }).join('');

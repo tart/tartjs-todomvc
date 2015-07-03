@@ -1,7 +1,7 @@
-goog.provide('todomvc.models.TodoModel');
-goog.require('goog.events.EventTarget');
-goog.require('tart.storage.Storage');
-goog.require('todomvc.entities.Todo');
+goog.module('todomvc.models.TodoModel');
+var EventTarget = goog.require('goog.events.EventTarget');
+var Storage = goog.require('tart.storage.Storage');
+var Todo = goog.require('todomvc.entities.Todo');
 
 
 
@@ -9,30 +9,29 @@ goog.require('todomvc.entities.Todo');
  * Provides storage and CRUD operations for todo items.
  *
  * @constructor
- * @extends {goog.events.EventTarget}
+ * @extends {EventTarget}
  */
-todomvc.models.TodoModel = function() {
-    goog.base(this);
-    this.storage = new tart.storage.Storage();
+function TodoModel() {
+    TodoModel.base(this, 'constructor');
+    this.storage = new Storage();
     this.loadTodos_();
-};
-goog.inherits(todomvc.models.TodoModel, goog.events.EventTarget);
-goog.addSingletonGetter(todomvc.models.TodoModel);
+}
+goog.inherits(TodoModel, EventTarget);
 
 
 /**
  * @type {Array.<todomvc.entities.Todo>}
  * @private
  */
-todomvc.models.TodoModel.prototype.todos_;
+TodoModel.prototype.todos_;
 
 
-todomvc.models.TodoModel.prototype.getTodos = function() {
+TodoModel.prototype.getTodos = function() {
     return this.todos_;
 };
 
 
-todomvc.models.TodoModel.prototype.toggleTodo = function(id) {
+TodoModel.prototype.toggleTodo = function(id) {
     var todo = goog.array.find(this.todos_, this.idPredicate(id));
 
     if (!todo) return null;
@@ -47,7 +46,7 @@ todomvc.models.TodoModel.prototype.toggleTodo = function(id) {
 };
 
 
-todomvc.models.TodoModel.prototype.removeTodo = function(id) {
+TodoModel.prototype.removeTodo = function(id) {
     var removed = goog.array.removeIf(this.todos_, this.idPredicate(id));
 
     if (removed == 0) return;
@@ -59,8 +58,8 @@ todomvc.models.TodoModel.prototype.removeTodo = function(id) {
 };
 
 
-todomvc.models.TodoModel.prototype.addTodo = function(title) {
-    var todo = new todomvc.entities.Todo({
+TodoModel.prototype.addTodo = function(title) {
+    var todo = new Todo({
         title: title,
         completed: false
     });
@@ -76,7 +75,7 @@ todomvc.models.TodoModel.prototype.addTodo = function(title) {
 };
 
 
-todomvc.models.TodoModel.prototype.clearCompleted = function() {
+TodoModel.prototype.clearCompleted = function() {
     goog.array.removeAllIf(this.todos_, this.completedPredicate(true));
 
     this.dispatchEvent('clear');
@@ -85,21 +84,21 @@ todomvc.models.TodoModel.prototype.clearCompleted = function() {
 };
 
 
-todomvc.models.TodoModel.prototype.idPredicate = function(id) {
+TodoModel.prototype.idPredicate = function(id) {
     return function(todo) {
         return todo.id == id;
     };
 };
 
 
-todomvc.models.TodoModel.prototype.completedPredicate = function(isCompleted) {
+TodoModel.prototype.completedPredicate = function(isCompleted) {
     return function(todo) {
         return todo.completed == isCompleted;
     };
 };
 
 
-todomvc.models.TodoModel.prototype.setAllTodosToCompleted = function(isCompleted) {
+TodoModel.prototype.setAllTodosToCompleted = function(isCompleted) {
     this.todos_.forEach(function(todo) {
         todo.completed = isCompleted;
     });
@@ -110,17 +109,17 @@ todomvc.models.TodoModel.prototype.setAllTodosToCompleted = function(isCompleted
 };
 
 
-todomvc.models.TodoModel.prototype.isCompleted = function() {
+TodoModel.prototype.isCompleted = function() {
     return this.todos_.every(this.completedPredicate(true));
 };
 
 
-todomvc.models.TodoModel.prototype.getUncompletedTodos = function() {
+TodoModel.prototype.getUncompletedTodos = function() {
     return this.todos_.filter(this.completedPredicate(false));
 };
 
 
-todomvc.models.TodoModel.prototype.getCompletedTodos = function() {
+TodoModel.prototype.getCompletedTodos = function() {
     return this.todos_.filter(this.completedPredicate(true));
 };
 
@@ -129,7 +128,7 @@ todomvc.models.TodoModel.prototype.getCompletedTodos = function() {
  *
  * @private
  */
-todomvc.models.TodoModel.prototype.storeTodos_ = function() {
+TodoModel.prototype.storeTodos_ = function() {
     this.dispatchEvent('update');
 
     this.storage.set('todomvc-tartjs', this.todos_.map(this.serializeTodo));
@@ -140,7 +139,7 @@ todomvc.models.TodoModel.prototype.storeTodos_ = function() {
  *
  * @private
  */
-todomvc.models.TodoModel.prototype.loadTodos_ = function() {
+TodoModel.prototype.loadTodos_ = function() {
     this.todos_ = (this.storage.get('todomvc-tartjs') || []).map(this.deserializeTodo);
 };
 
@@ -150,7 +149,7 @@ todomvc.models.TodoModel.prototype.loadTodos_ = function() {
  *
  * @param {todomvc.entities.Todo} todo
  */
-todomvc.models.TodoModel.prototype.serializeTodo = function(todo) {
+TodoModel.prototype.serializeTodo = function(todo) {
     return {
         'id': todo.id,
         'title': todo.title,
@@ -165,6 +164,9 @@ todomvc.models.TodoModel.prototype.serializeTodo = function(todo) {
  * @param {Object} obj
  * @return {todomvc.entities.Todo}
  */
-todomvc.models.TodoModel.prototype.deserializeTodo = function(obj) {
-    return new todomvc.entities.Todo(obj);
+TodoModel.prototype.deserializeTodo = function(obj) {
+    return new Todo(obj);
 };
+
+
+exports = new TodoModel();

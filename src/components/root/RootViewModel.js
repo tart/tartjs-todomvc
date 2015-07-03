@@ -1,6 +1,8 @@
-goog.provide('todomvc.components.Root.RootViewModel');
-goog.require('tart.ui.ComponentModel');
-goog.require('todomvc.models.TodoModel');
+goog.module('todomvc.components.Root.RootViewModel');
+var ComponentModel = goog.require('tart.ui.ComponentModel');
+var TodoModel = goog.require('todomvc.models.TodoModel');
+
+exports = RootViewModel;
 
 
 
@@ -9,42 +11,41 @@ goog.require('todomvc.models.TodoModel');
  * @constructor
  * @extends {tart.ui.ComponentModel}
  */
-todomvc.components.Root.RootViewModel = function() {
-    todomvc.components.Root.RootViewModel.base(this, 'constructor');
+function RootViewModel() {
+    RootViewModel.base(this, 'constructor');
 
-    this.todoModel = todomvc.models.TodoModel.getInstance();
-    this.items = this.todoModel.getTodos();
+    this.items = TodoModel.getTodos();
 
     this.update();
 
-    this.todoModel.listen('update', function() {
+    TodoModel.listen('update', function() {
         this.update();
 
         this.dispatchEvent('update');
     }, false, this);
-};
-goog.inherits(todomvc.components.Root.RootViewModel, tart.ui.ComponentModel);
+}
+goog.inherits(RootViewModel, tart.ui.ComponentModel);
 
 
-todomvc.components.Root.RootViewModel.prototype.toggleAll = function() {
+RootViewModel.prototype.toggleAll = function() {
     this.isCompleted = !this.isCompleted;
 
-    this.todoModel.setAllTodosToCompleted(this.isCompleted);
+    TodoModel.setAllTodosToCompleted(this.isCompleted);
 };
 
 
-todomvc.components.Root.RootViewModel.prototype.update = function() {
-    this.isCompleted = this.todoModel.isCompleted();
+RootViewModel.prototype.update = function() {
+    this.isCompleted = TodoModel.isCompleted();
 
-    this.uncompletedCount = this.todoModel.getUncompletedTodos().length;
+    this.uncompletedCount = TodoModel.getUncompletedTodos().length;
 };
 
 
-todomvc.components.Root.RootViewModel.prototype.addTodo = function(title) {
-    this.todoModel.addTodo(title);
+RootViewModel.prototype.addTodo = function(title) {
+    TodoModel.addTodo(title);
 };
 
 
-todomvc.components.Root.RootViewModel.prototype.clearCompleted = function() {
-    this.todoModel.clearCompleted();
+RootViewModel.prototype.clearCompleted = function() {
+    TodoModel.clearCompleted();
 };

@@ -1,6 +1,8 @@
-goog.provide('todomvc.components.TodoList.ListViewModel');
-goog.require('tart.ui.ComponentModel');
-goog.require('todomvc.models.TodoModel');
+goog.module('todomvc.components.TodoList.ListViewModel');
+var ComponentModel = goog.require('tart.ui.ComponentModel');
+var TodoModel = goog.require('todomvc.models.TodoModel');
+
+exports = ListViewModel;
 
 
 
@@ -9,28 +11,25 @@ goog.require('todomvc.models.TodoModel');
  * @constructor
  * @extends {tart.ui.ComponentModel}
  */
-todomvc.components.TodoList.ListViewModel = function() {
-    goog.base(this);
+function ListViewModel() {
+    ListViewModel.base(this, 'constructor');
 
-    this.todoModel = todomvc.models.TodoModel.getInstance();
+    this.todos = TodoModel.getTodos();
 
-    this.todos = this.todoModel.getTodos();
-
-    this.addListener = this.todoModel.listen('add', this.dispatchEvent, false, this);
-    this.removeListener = this.todoModel.listen('remove', this.dispatchEvent, false, this);
-    this.clearListener = this.todoModel.listen('clear', this.dispatchEvent, false, this);
-};
-goog.inherits(todomvc.components.TodoList.ListViewModel, tart.ui.ComponentModel);
+    this.addListener = TodoModel.listen('add', this.dispatchEvent, false, this);
+    this.removeListener = TodoModel.listen('remove', this.dispatchEvent, false, this);
+    this.clearListener = TodoModel.listen('clear', this.dispatchEvent, false, this);
+}
+goog.inherits(ListViewModel, ComponentModel);
 
 
 /**
  * @override
  */
-todomvc.components.TodoList.ListViewModel.prototype.disposeInternal = function() {
-    this.todoModel.unlistenByKey(this.addListener);
-    this.todoModel.unlistenByKey(this.removeListener);
-    this.todoModel.unlistenByKey(this.clearListener);
+ListViewModel.prototype.disposeInternal = function() {
+    TodoModel.unlistenByKey(this.addListener);
+    TodoModel.unlistenByKey(this.removeListener);
+    TodoModel.unlistenByKey(this.clearListener);
 
-    this.todoModel = null;
     this.todos = null;
 };

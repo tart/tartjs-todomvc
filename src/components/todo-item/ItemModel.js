@@ -1,43 +1,44 @@
-goog.provide('todomvc.components.TodoItem.ItemModel');
-goog.require('tart.ui.ComponentModel');
+goog.module('todomvc.components.TodoItem.ItemModel');
+var ComponentModel = goog.require('tart.ui.ComponentModel');
+var TodoModel = goog.require('todomvc.models.TodoModel');
+
+exports = ItemModel;
 
 
 
 /**
  *
  * @constructor
- * @extends {tart.ui.ComponentModel}
+ * @extends {ComponentModel}
  */
-todomvc.components.TodoItem.ItemModel = function(item) {
-    goog.base(this);
+function ItemModel(item) {
+    ItemModel.base(this, 'constructor');
 
     this.item = item;
-    this.todoModel = todomvc.models.TodoModel.getInstance();
 
-    this.todoModel.listen('toggle' + this.item.id, this.dispatchEvent, false, this);
-    this.markListener = this.todoModel.listen('mark all', function() {
+    TodoModel.listen('toggle' + this.item.id, this.dispatchEvent, false, this);
+    this.markListener = TodoModel.listen('mark all', function() {
         this.dispatchEvent('toggle' + this.item.id);
     }, false, this);
+}
+goog.inherits(ItemModel, ComponentModel);
+
+
+ItemModel.prototype.toggle = function() {
+    TodoModel.toggleTodo(this.item.id);
 };
-goog.inherits(todomvc.components.TodoItem.ItemModel, tart.ui.ComponentModel);
 
-
-todomvc.components.TodoItem.ItemModel.prototype.toggle = function() {
-    todomvc.models.TodoModel.getInstance().toggleTodo(this.item.id);
-};
-
-todomvc.components.TodoItem.ItemModel.prototype.remove = function() {
-    todomvc.models.TodoModel.getInstance().removeTodo(this.item.id);
+ItemModel.prototype.remove = function() {
+    TodoModel.removeTodo(this.item.id);
 };
 
 
 /**
  * @override
  */
-todomvc.components.TodoItem.ItemModel.prototype.disposeInternal = function() {
-    this.todoModel.unlisten('toggle' + this.item.id, this.dispatchEvent, false, this);
-    this.todoModel.unlistenByKey(this.markListener);
+ItemModel.prototype.disposeInternal = function() {
+    TodoModel.unlisten('toggle' + this.item.id, this.dispatchEvent, false, this);
+    TodoModel.unlistenByKey(this.markListener);
 
     this.item = null;
-    this.todoModel = null;
 };
