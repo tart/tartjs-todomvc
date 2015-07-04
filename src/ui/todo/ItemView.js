@@ -1,10 +1,8 @@
-goog.module('todomvc.components.TodoItem.Item');
+goog.module('todomvc.ui.todo.ItemView');
 
 var classlist = goog.require('goog.dom.classlist');
 var DlgComponent = goog.require('tart.ui.DlgComponent');
-var ItemModel = goog.require('todomvc.components.TodoItem.ItemModel');
-
-exports = Item;
+var ItemViewModel = goog.require('todomvc.ui.todo.ItemViewModel');
 
 
 
@@ -13,17 +11,17 @@ exports = Item;
  * @constructor
  * @extends {tart.ui.DlgComponent}
  */
-function Item(item) {
-    this.model = new ItemModel(item);
-    Item.base(this, 'constructor');
+function ItemView(item) {
+    this.model = new ItemViewModel(item);
+    ItemView.base(this, 'constructor');
 }
-goog.inherits(Item, DlgComponent);
+goog.inherits(ItemView, DlgComponent);
 
 
 /**
  * @override
  */
-Item.prototype.bindModelEvents = function() {
+ItemView.prototype.bindModelEvents = function() {
     this.model.listen('toggle' + this.model.item.id, this.onToggle, false, this);
 };
 
@@ -31,7 +29,7 @@ Item.prototype.bindModelEvents = function() {
 /**
  * Toggles the completed state of this todo item.
  */
-Item.prototype.toggle = function() {
+ItemView.prototype.toggle = function() {
     this.model.toggle();
 };
 
@@ -39,7 +37,7 @@ Item.prototype.toggle = function() {
 /**
  * Removes this todo item.
  */
-Item.prototype.destroy = function() {
+ItemView.prototype.destroy = function() {
     this.model.remove();
 };
 
@@ -47,7 +45,7 @@ Item.prototype.destroy = function() {
 /**
  * Toggle event handler. Sets the `completed` class appropriately.
  */
-Item.prototype.onToggle = function() {
+ItemView.prototype.onToggle = function() {
     goog.dom.classlist.enable(this.getElement(), 'completed', this.model.item.completed);
 
     this.getChild('.toggle')[0].checked = this.model.item.completed;
@@ -57,7 +55,7 @@ Item.prototype.onToggle = function() {
 /**
  * @override
  */
-Item.prototype.disposeInternal = function() {
+ItemView.prototype.disposeInternal = function() {
     this.model.unlisten('toggle', this.onToggle, false, this);
     this.model.dispose();
     this.model = null;
@@ -67,7 +65,7 @@ Item.prototype.disposeInternal = function() {
 /**
  * @override
  */
-Item.prototype.templates_base = function() {
+ItemView.prototype.templates_base = function() {
     var completed = this.model.item.completed ? 'completed' : '',
         checked = this.model.item.completed ? 'checked' : '';
 
@@ -82,9 +80,13 @@ Item.prototype.templates_base = function() {
 };
 
 
-Item.prototype.events = {
+ItemView.prototype.events = {
     'click': {
-        '.toggle': Item.prototype.toggle,
-        '.destroy': Item.prototype.destroy
+        '.toggle': ItemView.prototype.toggle,
+        '.destroy': ItemView.prototype.destroy
     }
 };
+
+
+exports = ItemView;
+

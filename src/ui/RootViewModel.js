@@ -1,9 +1,7 @@
-goog.module('todomvc.components.Root.RootViewModel');
+goog.module('todomvc.ui.RootViewModel');
 
 var ComponentModel = goog.require('tart.ui.ComponentModel');
 var TodoModel = goog.require('todomvc.models.TodoModel');
-
-exports = RootViewModel;
 
 
 
@@ -50,3 +48,6 @@ RootViewModel.prototype.addTodo = function(title) {
 RootViewModel.prototype.clearCompleted = function() {
     TodoModel.clearCompleted();
 };
+
+
+exports = RootViewModel;

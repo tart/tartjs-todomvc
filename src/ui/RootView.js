@@ -1,12 +1,10 @@
-goog.module('todomvc.components.Root.RootView');
+goog.module('todomvc.ui.RootView');
 
 var KeyHandler = goog.require('goog.events.KeyHandler');
 var MessageFormat = goog.require('goog.i18n.MessageFormat');
 var DlgComponent = goog.require('tart.ui.DlgComponent');
-var RootViewModel = goog.require('todomvc.components.Root.RootViewModel');
-var ListView = goog.require('todomvc.components.TodoList.ListView');
-
-exports = RootView;
+var RootViewModel = goog.require('todomvc.ui.RootViewModel');
+var ListView = goog.require('todomvc.ui.todo.ListView');
 
 
 
@@ -175,3 +173,7 @@ RootView.prototype.events = {
         '.clear-completed': RootView.prototype.clearCompleted
     }
 };
+
+
+exports = RootView;
+

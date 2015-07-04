@@ -1,10 +1,8 @@
-goog.module('todomvc.components.TodoList.ListView');
+goog.module('todomvc.ui.todo.ListView');
 
 var DlgComponent = goog.require('tart.ui.DlgComponent');
-var Item = goog.require('todomvc.components.TodoItem.Item');
-var ListViewModel = goog.require('todomvc.components.TodoList.ListViewModel');
-
-exports = ListView;
+var ItemView = goog.require('todomvc.ui.todo.ItemView');
+var ListViewModel = goog.require('todomvc.ui.todo.ListViewModel');
 
 
 
@@ -19,7 +17,7 @@ function ListView() {
     ListView.base(this, 'constructor');
 
     this.children = this.model.todos.map(function(todo) {
-        return new Item(todo);
+        return new ItemView(todo);
     });
 }
 goog.inherits(ListView, DlgComponent);
@@ -41,7 +39,7 @@ ListView.prototype.onUpdate = function() {
     });
 
     this.children = this.model.todos.map(function(todo) {
-        return new Item(todo);
+        return new ItemView(todo);
     });
 
     this.getElement().innerHTML = this.templates_todos();
@@ -74,3 +72,6 @@ ListView.prototype.templates_todos = function() {
         return child.getPlaceholder();
     }).join('');
 };
+
+
+exports = ListView;

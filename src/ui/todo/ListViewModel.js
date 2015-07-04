@@ -1,9 +1,7 @@
-goog.module('todomvc.components.TodoList.ListViewModel');
+goog.module('todomvc.ui.todo.ListViewModel');
 
 var ComponentModel = goog.require('tart.ui.ComponentModel');
 var TodoModel = goog.require('todomvc.models.TodoModel');
-
-exports = ListViewModel;
 
 
 
@@ -34,3 +32,6 @@ ListViewModel.prototype.disposeInternal = function() {
 
     this.todos = null;
 };
+
+
+exports = ListViewModel;
