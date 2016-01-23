@@ -2,7 +2,7 @@
 
 Join us on [![tartJS Slack](http://slack.tartjs.org/badge.svg)](http://slack.tartjs.org) for anything about tartJS.
 
-This project aims to display the best practices of tartJS development in a single page web application. For a demo of hybrid mobile app development, take a look at the [`https://github.com/tart/tartjs-mobile-demo`](tartjs-mobile-demo)
+This project aims to display the best practices of tartJS development in a single page web application. For a demo of hybrid mobile app development, take a look at the [`https://github.com/tart/tartjs-mobile-demo`](https://github.com/tart/tartjs-mobile-demo)
 repository.
 
 ## Install
